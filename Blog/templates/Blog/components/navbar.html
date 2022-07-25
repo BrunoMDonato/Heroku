@@ -1,0 +1,58 @@
+
+<!-- Responsive navbar-->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        
+        {% if request.user.is_authenticated %}
+                {% if avatar %}
+                    <img src="{{avatar}}" class="rounded-circle" height="40px" >
+                <p> -- </p>
+                {% endif %}
+            <a class="navbar-brand" href="{%url 'Logout' %}">{{ user.username }} / Logout</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/nuevo">Crear un Post</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Mensajes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{%url 'env_men' %}">Nuevo mensaje</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{%url 'leer_men' %}">Mis mensajes</a></li>
+                    </ul>
+                    {% if request.user.is_superuser %}
+                        <li class="nav-item"><a class="nav-link" href="{%url 'Avatar' %}">Avatars</a></li>
+                    {%endif %}
+
+
+                </li>
+            </ul>                 
+
+          
+
+        {% else %}
+       
+            <a class="navbar-brand" href="{%url 'Login' %}">Inicio sesion</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        
+        {% endif %}
+        
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{%url 'post_list' %}">Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{%url 'sobre_mi' %}">Sobre mi</a></li>
+
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{%url 'editar_perfil' %}">Editar Perfil</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+    </div>
+</nav>
+
+
